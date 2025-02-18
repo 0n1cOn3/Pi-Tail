@@ -1,156 +1,114 @@
-# Pi-Tail Komplett
-> auf Deutsch
-***
+# 📌 Pi-Tail Komplett (Deutsch)
 
-(hier die anleitung auf englisch:
-https://whitedome.com.au/re4son/pi-tail/)
+> **🔗 Original-Anleitung auf Englisch:** [Pi-Tail Guide](https://whitedome.com.au/re4son/pi-tail/)
 
-re4son kernel und image funktionieren auf den raspberry pi zero.. hier eine anleitung...
+## 🛠 Installation und Einrichtung
 
-***
+### 📥 Image-Download
 
-Image: Pi-Tail.img von dem Entwickler "re4son"
-letztes update 2018
-> Pi-Tail-180925.img.xz (2,2G)
+**Image:** `Pi-Tail.img` von *re4son* (letztes Update 2018)
+- 📁 Datei: `Pi-Tail-180925.img.xz` (2,2 GB)
+- ⚠ **Wichtig:** *Kein* `apt-get update/upgrade` durchführen, da sonst die Funktionalität beeinträchtigt wird.
 
-..nicht das aktuellste .img, dennoch funktioniert noch alles, solange man nicht updatet:
-- KEIN apt-get update/upgrade
-***
-re4son sein kernel sorgt dafür das Raspberry pi's in den monitor mode
-gehen können, ohne eine zusatz w-lan karte... 
-ladet hierfür folgende datei herrunter und kopiert sie auf die SD-Karte..
-> "Kali Pi-Tail img"
-> https://whitedome.com.au/re4son/download/pi-tail/
+### 🔧 Kernel und Setup
 
-> https://downloads.raspberrypi.org/imager/imager_latest.exe
-> "Raspberry Pi Imager"
+Der *re4son*-Kernel ermöglicht den Monitor-Mode auf dem Raspberry Pi **ohne** zusätzliche WLAN-Karte.
 
-..steckt diese nun in ein Raspberry Pi zero und startet ihn
-indem ihr euer gerät strom gebt
+**🔗 Benötigte Downloads:**
+- [📥 Pi-Tail Image](https://whitedome.com.au/re4son/download/pi-tail/)
+- [📥 Raspberry Pi Imager](https://downloads.raspberrypi.org/imager/imager_latest.exe)
 
-***
-***
+**🚀 Setup:**
+1. Lade das Image herunter und kopiere es mit dem Raspberry Pi Imager auf eine SD-Karte.
+2. Setze die SD-Karte in den Raspberry Pi Zero ein.
+3. Starte den Pi durch Anschluss an eine Stromquelle.
 
-stellt nun euer android ein:
-(WiFi-Hotspot einstellen &ConnectBot)
+---
 
-# https://youtu.be/HwUJdM0aFXw
+## 📡 Verbindung mit Android
 
-# Hier zeige ich euch was ihr tun müsst, nachdem ihr das Image herruntergeladen habt, und es auf eine SD-karte mit hilfe von Raspberry Pi Imager, kopiert habt.
-Dieses Image, was von "re4son" zur verfügung gestellt wurde, ist komplett und bedarf KEIN "apt-get update/upgrade".. dieser vorgang würde dafür sorgen das euer Pi-Tail nicht mehr funktioniert wie gewohnt
-***
-Hotspot Name:
-- sepultura
+1. **📶 WiFi-Hotspot einrichten**
+   - **SSID:** `sepultura`
+   - **Passwort:** `R4t4m4h4tt4`
+2. **🔐 ConnectBot Konfiguration**
+   - SSH-Host: `root@192.168.43.254`
+   - Passwort: `toor`
+3. **📜 Wichtige Befehle**
+   - `mon0up` (Monitor-Mode aktivieren)
+   - `wifite` (WLAN-Analyse starten)
+   - *(Beenden mit `CTRL+C`, Monitor-Mode deaktivieren mit `mon0down`)*
 
-und das Passwort:
-- R4t4m4h4tt4
-***
-***
-in ConnectBot:
-- root@192.168.43.254
+---
 
-ssh/root Passwort:
-- toor
-***
-- mon0up
-- wifite
-> (crtl+c =beenden // mon0down beendet monitor mode)
+## 🖥 VNC-Steuerung (Optional)
 
-***
-___________________________
-***
+1. **🎛 Starten des VNC-Servers**
+   ```sh
+   vncserver
+   ```
+2. **⚙️ Port-Weiterleitung in ConnectBot**
+   - **Nickname:** `localhost`
+   - **Typ:** `local`
+   - **Quellport:** `5901`
+   - **Ziel:** `127.0.0.1:5901`
+3. **🔗 VNC-Verbindung konfigurieren**
+   - **Name:** `PiTail0`
+   - **Adresse:** `127.0.0.1:5901`
+   - **Benutzer:** `root`
+   - **Passwort:** `toortoor`
 
-# Tipp: VNC kontrolle:
-wenn ihr im "Pi-Tail" seid
-gebt folgenden befehl ein:
-- vncserver
-***
-oben rechts auf die 3punkte klicken und auf "Port-weiterleitung" gehen
-- nickname: localhost
-- type: local
-- source port: 5901
-- destination: 127.0.0.1:5901
-***
-öffnet eine VNC app und fügt eine neue Verbindung hinzu:
-- name: PiTail0
-- adresse: 127.0.0.1:5901
-- user: root
-- passwort: toortoor
+---
 
-__________________________
-***
+## 🔄 Alternative: Pi-Tail von Kali.org
 
-***
+> **📥 Aktuelle Version:** `kali-linux-2021.3-rpi0w-pitail-armel.img.xz`
 
-# Es gibt eine Pi-Tail version von "kali.org"
-> (momentan kali-linux-2021.3-rpi0w-pitail-armel.img.xz)
-dieses ist zwar aktueller, bedarf doch mehr konfigurationen
+Die *kali.org*-Version erfordert zusätzliche Konfigurationen, da sie standardmäßig ohne Root-Zugriff läuft.
 
+### 🔑 Trick 1: Root-Zugriff mit `sudo`
 
-***
-!!!
-ihr müsst als Root-User unter kali-tail unterwegs sein, damit alle skripte wie gewohnt funktionieren..
-kali.org hat das img. zwar auf den neusten stand gebracht und alle Skripte mit importiert, nun ist es aber so das man bei der kali 2018 version komplett als root-user unterwegs ist, was seit der neusten 2020 version unter kali NICHT mehr der fall ist.. 
-entweder passt ihr alle befehle mit "sudo" an,{dazu müsst ihr auch teils die skripte bearbeiten} 
-oder ihr wendet eines, der von mir gegebenden "Tricks" an um das problem zu lösen
-!!!
-***
+1. Verbindung mit:
+   ```sh
+   kali@192.168.43.254
+   ```
+   **Passwort:** `kali`
+2. **🔏 Root-Passwort setzen:**
+   ```sh
+   sudo passwd root
+   ```
+   - Neues Passwort: `toor`
+   - Bestätigen: `toor`
+3. **🛠 Root-Zugriff aktivieren:**
+   ```sh
+   su
+   ```
+   - Passwort: `toor`
 
-***
-# [Trick 1]
-> ersetzt bei ConnectBot..
-> root@192.168.43.254 mit..
-- kali@192.168.43.254 
+---
 
-> euer ssh passwort lautet:
-- kali 
-> (statt toor)
+### 🔓 Trick 2: Root-Login per SSH
 
-damit alles wie gewohnt funktioniert, geht wie folgt vor:
-verbinden mit 
-- kali@192.168.43.254
-- kali
-> [jetzt seid ihr ein normaler user der immer sudo eingeben müsste !!]
-> 
-***
-> um wieder root-user zu sein, tut folgendes..
-befehl:
-- sudo passwd root
-> [da die neue kali version gar kein root passwort hat, fragt er euch direkt nach einem neuen]
-- toor
-- toor     (..als bestätigung)
-> [euer passwort ist nun wieder "toor"]
-- su
-- toor
-> jetzt seit ihr wieder der gewohnte Root-User
-***
+1. Verbindung mit:
+   ```sh
+   kali@192.168.43.254
+   ```
+   **Passwort:** `kali`
+2. **🔄 Passwort ändern:**
+   ```sh
+   passwd
+   ```
+   - Altes Passwort: `kali`
+   - Neues Passwort: `toortoor`
+   - Bestätigen: `toortoor`
+3. **🔗 Verbindung trennen und neuen SSH-Host erstellen:**
+   ```sh
+   root@192.168.43.254
+   ```
+   - **Passwort:** `toortoor`
 
-***
-# [Trick 2]
----> wenn ihr euch bei diesem img, über ConnectBot mit root einloggen wollt, tut folgendes !!! <---
-verbinden mit: 
-- kali@192.168.43.254
-> passwort: 
-- kali
-***
-- passwd
-> [er fragt euch nach eurem kali passwort was zur Zeit noch "kali" ist (ssh passwort).. also:]
-- kali
-- toortoor 
-> [neues kali passwort]
-- toortoor 
-> [zum bestätigen]
-***
-> trennt die aktive verbindung und erstellt einen neuen host:
-- root@192.168.43.254
-***
-> verbindet euch mit root@192.168.43.254
-> und gebt 
-- toortoor
-> als passwort ein
-***
-***
+---
 
-***
+## 📚 Weitere Informationen
 
-# https://github.com/Re4son/
+- 🔗 [Re4son auf GitHub](https://github.com/Re4son/)
+
